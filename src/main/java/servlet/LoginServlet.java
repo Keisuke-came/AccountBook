@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("pass");
-		String name = null;
 		AccountDAO dao = new AccountDAO();
 
 		Login login = new Login(userId, pass);
@@ -44,10 +43,10 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("account", account);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginOK.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("loginOK.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			response.sendRedirect("/accountBook2/LoginServlet");
+			response.sendRedirect("/account-book-101/LoginServlet");
 		}
 	}
 }

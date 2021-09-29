@@ -46,9 +46,9 @@ public class BookServlet extends HttpServlet {
 			boolean result = bo.executeSet(register, account);
 
 			if(result) {
-				fowardPath = "WEB-INF/jsp/itemOK.jsp";
+				fowardPath = "itemOK.jsp";
 			} else {
-				response.sendRedirect("/accountBook2/MainServlet");
+				response.sendRedirect("/account-book-101/MainServlet");
 			}
 		}
 
@@ -74,9 +74,9 @@ public class BookServlet extends HttpServlet {
 			session.removeAttribute("item");
 
 			if(result) {
-				fowardPath = "WEB-INF/jsp/updateOK.jsp";
+				fowardPath = "updateOK.jsp";
 			} else {
-				response.sendRedirect("/accountBook2/MainServlet");
+				response.sendRedirect("/account-book-101/MainServlet");
 			}
 		}
 

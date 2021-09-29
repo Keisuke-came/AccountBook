@@ -31,17 +31,17 @@ public class MainServlet extends HttpServlet {
 
 		if(action == null) {
 			if(loginUser == null) {
-				response.sendRedirect("/WEB-INF/jsp/login.jsp");
+				response.sendRedirect("login.jsp");
 			} else {
 				BookLogic bo = new BookLogic();
 				itemList = bo.executeFind(loginUser);
 				request.setAttribute("itemList", itemList);
-				fowardPath = "/WEB-INF/jsp/main.jsp";
+				fowardPath = "main.jsp";
 			}
 		}
 
 		else if(action.equals("done")) {
-			fowardPath = "/WEB-INF/jsp/register.jsp";
+			fowardPath = "register.jsp";
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(fowardPath);
@@ -54,15 +54,15 @@ public class MainServlet extends HttpServlet {
 		String fowardPath = null;
 		String action = request.getParameter("action");
 
-		if(action == null) {
+		if(action.equals("delete")) {
 			BookLogic bo = new BookLogic();
 			String param = request.getParameter("itemId");
 			int itemId = Integer.parseInt(param);
 			boolean result = bo.executeRemove(itemId);
 			if(result) {
-				fowardPath = "WEB-INF/jsp/deleteOK.jsp";
+				fowardPath = "deleteOK.jsp";
 			} else {
-				response.sendRedirect("/accountBook2/MainServlet");
+				response.sendRedirect("/account-book-101/MainServlet");
 			}
 		}
 
@@ -88,7 +88,7 @@ public class MainServlet extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("item", item);
-			fowardPath = "/WEB-INF/jsp/update.jsp";
+			fowardPath = "update.jsp";
 		}
 
 
@@ -99,9 +99,9 @@ public class MainServlet extends HttpServlet {
 			itemList = bo.executeSearch(search);
 			if(itemList != null) {
 				request.setAttribute("itemList", itemList);
-				fowardPath = "/WEB-INF/jsp/main.jsp";
+				fowardPath = "main.jsp";
 			} else {
-				response.sendRedirect("/accountBook2/MainServlet");
+				response.sendRedirect("/account-book-101/MainServlet");
 			}
 		}
 

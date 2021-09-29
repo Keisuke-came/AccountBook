@@ -13,9 +13,9 @@ import model.Item;
 import model.Register;
 
 public class BookDAO {
-	private final String JDBC_URL = "jdbc:postgresql://localhost/accountbook";
-	private final String DB_USER = "kandakeisuke";
-	private final String DB_PASS = "";
+	private final String JDBC_URL = "jdbc:postgresql://ec2-100-24-169-249.compute-1.amazonaws.com:5432/accountbook";
+	private final String DB_USER = "mkwkvavswmgzhf";
+	private final String DB_PASS = "a7205fd9a18aa26f2615424d2f0e889db6e8f6cb361abbee141dc3d3314abab0";
 
 	public int setItem(Register register, Account account) {
 		int rs = 0;

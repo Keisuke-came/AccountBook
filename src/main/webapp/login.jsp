@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>家計簿ログイン</h1>
-<form action="/accountBook2/LoginServlet" method="post">
+<form action="/account-book-101/LoginServlet" method="post">
 ユーザーID：<input type="text" name="userId" required><br>
 パスワード：<input type="password" name="pass" required><br>
 <input type="submit" value="ログイン">
