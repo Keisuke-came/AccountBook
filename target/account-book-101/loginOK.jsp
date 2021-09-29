@@ -10,6 +10,6 @@
 </head>
 <body>
 <p>ようこそ<c:out value="${account.name}" />さん</p>
-<a href="/account-book-101/MainServlet">メインへ</a>
+<a href="MainServlet">メインへ</a>
 </body>
 </html>
