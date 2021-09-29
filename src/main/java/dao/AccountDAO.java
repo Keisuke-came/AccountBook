@@ -1,6 +1,5 @@
 package dao;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,8 +16,8 @@ public class AccountDAO {
 		Account account = null;
 
 		try {
-			URI dbUri = new URI(System.getenv("JDBC_DATABASE_URL"));
-			final String JDBC_URL = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+			String dbUri = System.getenv("JDBC_DATABASE_URL");
+			final String JDBC_URL = dbUri.split("?")[0];
 			final String DB_USER = System.getenv("JDBC_DATABASE_USERNAME");
 			final String DB_PASS = System.getenv("JDBC_DATABASE_PASSWORD");
 
