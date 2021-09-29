@@ -20,7 +20,7 @@ public class AccountDAO {
 			URI dbUri = new URI(System.getenv("JDBC_DATABASE_URL"));
 			final String JDBC_URL = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 			final String DB_USER = System.getenv("JDBC_DATABASE_USERNAME");
-			final String DB_PASS = System.getenv("JDBC_DATABASE_URL");
+			final String DB_PASS = System.getenv("JDBC_DATABASE_PASSWORD");
 
 			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
