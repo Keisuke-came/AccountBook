@@ -1,7 +1,5 @@
 package dao;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -15,39 +13,29 @@ import model.Item;
 import model.Register;
 
 public class BookDAO {
+	String dbUri = System.getenv("JDBC_DATABASE_URL");
 
 	public int setItem(Register register, Account account) {
 		int rs = 0;
 
-		try {
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
-			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
-			final String DB_USER = dbUri.getUserInfo().split(":")[1];
-			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			long d = System.currentTimeMillis();
+			Date date = new Date(d);
 
-			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "INSERT INTO BOOK (ITEM, PAYMENT, INCOME, DATE, CATEGORY_ID, ACCOUNT_ID) "
+					+ "VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, register.getItemName());
+			pStmt.setInt(2, register.getPayment());
+			pStmt.setInt(3, register.getIncome());
+			pStmt.setDate(4, date);
+			pStmt.setInt(5, register.getCategoryId());
+			pStmt.setString(6, account.getUserId());
 
-				long d = System.currentTimeMillis();
-				Date date = new Date(d);
+			rs = pStmt.executeUpdate();
 
-				String sql = "INSERT INTO BOOK (ITEM, PAYMENT, INCOME, DATE, CATEGORY_ID, ACCOUNT_ID) "
-						+ "VALUES (?, ?, ?, ?, ?, ?)";
-				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, register.getItemName());
-				pStmt.setInt(2, register.getPayment());
-				pStmt.setInt(3, register.getIncome());
-				pStmt.setDate(4, date);
-				pStmt.setInt(5, register.getCategoryId());
-				pStmt.setString(6, account.getUserId());
-
-				rs = pStmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} catch (URISyntaxException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -58,41 +46,28 @@ public class BookDAO {
 		Item item = null;
 		ArrayList<Item> itemList = new ArrayList<>();
 
-		try {
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
-			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
-			final String DB_USER = dbUri.getUserInfo().split(":")[1];
-			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			String sql = "SELECT ITEM_ID, ITEM, PAYMENT, INCOME, DATE, NAME AS CATEGORY FROM BOOK JOIN CATEGORY ON "
+					+ "BOOK.CATEGORY_ID = CATEGORY.ID WHERE ACCOUNT_ID = ? ORDER BY DATE DESC";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, account.getUserId());
 
+			ResultSet rs = pStmt.executeQuery();
 
-			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-				String sql = "SELECT ITEM_ID, ITEM, PAYMENT, INCOME, DATE, NAME AS CATEGORY FROM BOOK JOIN CATEGORY ON "
-						+ "BOOK.CATEGORY_ID = CATEGORY.ID WHERE ACCOUNT_ID = ? ORDER BY DATE DESC";
-				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, account.getUserId());
-
-				ResultSet rs = pStmt.executeQuery();
-
-				while (rs.next()) {
-					int itemId = rs.getInt("ITEM_ID");
-					String itemName = rs.getString("ITEM");
-					int payment = rs.getInt("PAYMENT");
-					int income = rs.getInt("INCOME");
-					Date date = rs.getDate("DATE");
-					String category = rs.getString("CATEGORY");
-					String userName = account.getName();
-					item = new Item(itemId, itemName, payment, income, date, category, userName);
-					itemList.add(item);
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
+			while (rs.next()) {
+				int itemId = rs.getInt("ITEM_ID");
+				String itemName = rs.getString("ITEM");
+				int payment = rs.getInt("PAYMENT");
+				int income = rs.getInt("INCOME");
+				Date date = rs.getDate("DATE");
+				String category = rs.getString("CATEGORY");
+				String userName = account.getName();
+				item = new Item(itemId, itemName, payment, income, date, category, userName);
+				itemList.add(item);
 			}
 
-		} catch (URISyntaxException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -103,37 +78,25 @@ public class BookDAO {
 	public int updateItem(Register register, Account account, int itemId) {
 		int rs = 0;
 
-		try {
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+			long d = System.currentTimeMillis();
+			Date date = new Date(d);
 
-			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
-			final String DB_USER = dbUri.getUserInfo().split(":")[1];
-			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			String sql = "UPDATE BOOK SET ITEM = ?, PAYMENT = ?, INCOME = ?, DATE = ?, CATEGORY_ID = ?, ACCOUNT_ID = ? "
+					+ "WHERE ITEM_ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, register.getItemName());
+			pStmt.setInt(2, register.getPayment());
+			pStmt.setInt(3, register.getIncome());
+			pStmt.setDate(4, date);
+			pStmt.setInt(5, register.getCategoryId());
+			pStmt.setString(6, account.getUserId());
+			pStmt.setInt(7, itemId);
 
-			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			rs = pStmt.executeUpdate();
 
-				long d = System.currentTimeMillis();
-				Date date = new Date(d);
-
-				String sql = "UPDATE BOOK SET ITEM = ?, PAYMENT = ?, INCOME = ?, DATE = ?, CATEGORY_ID = ?, ACCOUNT_ID = ? "
-						+ "WHERE ITEM_ID = ?";
-				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, register.getItemName());
-				pStmt.setInt(2, register.getPayment());
-				pStmt.setInt(3, register.getIncome());
-				pStmt.setDate(4, date);
-				pStmt.setInt(5, register.getCategoryId());
-				pStmt.setString(6, account.getUserId());
-				pStmt.setInt(7, itemId);
-
-				rs = pStmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} catch (URISyntaxException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -143,27 +106,15 @@ public class BookDAO {
 	public int removeItem(int itemId) {
 		int rs = 0;
 
-		try {
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+			String sql = "DELETE FROM BOOK WHERE ITEM_ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, itemId);
 
-			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
-			final String DB_USER = dbUri.getUserInfo().split(":")[1];
-			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			rs = pStmt.executeUpdate();
 
-			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-				String sql = "DELETE FROM BOOK WHERE ITEM_ID = ?";
-				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setInt(1, itemId);
-
-				rs = pStmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} catch (URISyntaxException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -174,42 +125,28 @@ public class BookDAO {
 		Item item = null;
 		ArrayList<Item> itemList = new ArrayList<>();
 
-		try {
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+			String sql = "SELECT ITEM_ID, ITEM, PAYMENT, INCOME, DATE, CATEGORY.NAME AS CATEGORY, ACCOUNT.NAME AS ACCOUNT"
+					+ " FROM BOOK JOIN CATEGORY ON BOOK.CATEGORY_ID = CATEGORY.ID JOIN ACCOUNT ON "
+					+ "BOOK.ACCOUNT_ID = ACCOUNT.USER_ID WHERE ITEM LIKE '%" + letter + "%' ORDER BY DATE DESC";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
-			final String DB_USER = dbUri.getUserInfo().split(":")[1];
-			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			ResultSet rs = pStmt.executeQuery();
 
-
-			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-				String sql = "SELECT ITEM_ID, ITEM, PAYMENT, INCOME, DATE, CATEGORY.NAME AS CATEGORY, ACCOUNT.NAME AS ACCOUNT"
-						+ " FROM BOOK JOIN CATEGORY ON BOOK.CATEGORY_ID = CATEGORY.ID JOIN ACCOUNT ON "
-						+ "BOOK.ACCOUNT_ID = ACCOUNT.USER_ID WHERE ITEM LIKE '%" + letter + "%' ORDER BY DATE DESC";
-				PreparedStatement pStmt = conn.prepareStatement(sql);
-
-				ResultSet rs = pStmt.executeQuery();
-
-				while (rs.next()) {
-					int itemId = rs.getInt("ITEM_ID");
-					String itemName = rs.getString("ITEM");
-					int payment = rs.getInt("PAYMENT");
-					int income = rs.getInt("INCOME");
-					Date date = rs.getDate("DATE");
-					String category = rs.getString("CATEGORY");
-					String userName = rs.getString("ACCOUNT");
-					item = new Item(itemId, itemName, payment, income, date, category, userName);
-					itemList.add(item);
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
+			while (rs.next()) {
+				int itemId = rs.getInt("ITEM_ID");
+				String itemName = rs.getString("ITEM");
+				int payment = rs.getInt("PAYMENT");
+				int income = rs.getInt("INCOME");
+				Date date = rs.getDate("DATE");
+				String category = rs.getString("CATEGORY");
+				String userName = rs.getString("ACCOUNT");
+				item = new Item(itemId, itemName, payment, income, date, category, userName);
+				itemList.add(item);
 			}
 
-		} catch (URISyntaxException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}

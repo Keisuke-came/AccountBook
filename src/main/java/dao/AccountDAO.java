@@ -14,11 +14,6 @@ public class AccountDAO {
 	public Account findByLogin(Login login) {
 		Account account = null;
 
-//		String dbUri = System.getenv("JDBC_DATABASE_URL");
-//		final String JDBC_URL = dbUri.split("?")[0];
-//		final String DB_USER = System.getenv("JDBC_DATABASE_USERNAME");
-//		final String DB_PASS = System.getenv("JDBC_DATABASE_PASSWORD");
-
 		String dbUri = System.getenv("JDBC_DATABASE_URL");
 
 		try (Connection conn = DriverManager.getConnection(dbUri)) {
