@@ -17,7 +17,7 @@ public class AccountDAO {
 		Account account = null;
 
 		try {
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+			URI dbUri = new URI(System.getenv("JDBC_DATABASE_URL"));
 
 			final String JDBC_URL = dbUri.getUserInfo().split(":")[0];
 			final String DB_USER = dbUri.getUserInfo().split(":")[1];
