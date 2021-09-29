@@ -48,7 +48,7 @@ public class BookServlet extends HttpServlet {
 			if(result) {
 				fowardPath = "itemOK.jsp";
 			} else {
-				response.sendRedirect("/account-book-101/MainServlet");
+				response.sendRedirect("MainServlet");
 			}
 		}
 
@@ -76,7 +76,7 @@ public class BookServlet extends HttpServlet {
 			if(result) {
 				fowardPath = "updateOK.jsp";
 			} else {
-				response.sendRedirect("/account-book-101/MainServlet");
+				response.sendRedirect("MainServlet");
 			}
 		}
 

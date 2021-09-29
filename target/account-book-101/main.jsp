@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <%@ page import="model.Item,java.util.ArrayList" %>
 <%
 @SuppressWarnings("unchecked")
@@ -16,14 +17,14 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 <h1>家計簿メイン</h1>
 <p>
 <c:out value="${account.name}" />さん、ログイン中
-<a href="/accountBook2/LogoutServlet">ログアウト</a>
+<a href="/account-book-101/LogoutServlet">ログアウト</a>
 </p>
-<form action="/accountBook2/MainServlet?action=search" method="post">
+<form action="/account-book-101/MainServlet?action=search" method="post">
 		<input type="search" name="search" placeholder="キーワードを入力">
 		<input type="submit" name="submit" value="検索">
 </form>
 <p>
-<a href="/accountBook2/MainServlet?action=done">登録</a>
+<a href="/account-book-101/MainServlet?action=done">登録</a>
 </p>
 <p>
 -------------------------------------------------------------------------<br>
@@ -32,7 +33,7 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 	${item.date}<br>
 	支出：${item.payment}　収入：${item.income}<br>
 	費目：${item.category}<br>
-	<form action="/accountBook2/MainServlet?action=update" method="post">
+	<form action="/account-book-101/MainServlet?action=update" method="post">
 		<input type="hidden" name="itemId" value="${item.itemId}">
 		<input type="hidden" name="itemName" value="${item.itemName}">
 		<input type="hidden" name="payment" value="${item.payment}">
@@ -42,7 +43,7 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 		<input type="hidden" name="userName" value="${item.userName}">
 		<input type="submit" value="更新">
 	</form>
-	<form action="/accountBook2/MainServlet?action=delete" method="post">
+	<form action="/account-book-101/MainServlet?action=delete" method="post">
 		<input type="hidden" name="itemId" value="${item.itemId}">
 		<input type="submit" value="削除">
 	</form>

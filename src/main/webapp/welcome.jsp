@@ -9,7 +9,7 @@
 <body>
 <h1>家計簿</h1>
 <ul>
-<li><a href="/account-book-101/LoginServlet">ログイン</a></li>
+<li><a href="LoginServlet">ログイン</a></li>
 </ul>
 </body>
 </html>

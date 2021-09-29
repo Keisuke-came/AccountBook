@@ -62,7 +62,7 @@ public class MainServlet extends HttpServlet {
 			if(result) {
 				fowardPath = "deleteOK.jsp";
 			} else {
-				response.sendRedirect("/account-book-101/MainServlet");
+				response.sendRedirect("MainServlet");
 			}
 		}
 
@@ -101,7 +101,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("itemList", itemList);
 				fowardPath = "main.jsp";
 			} else {
-				response.sendRedirect("/account-book-101/MainServlet");
+				response.sendRedirect("MainServlet");
 			}
 		}
 

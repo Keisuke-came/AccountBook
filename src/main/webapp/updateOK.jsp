@@ -8,6 +8,6 @@
 </head>
 <body>
 <p>正常に更新が完了しました</p>
-<a href="/account-book-101/MainServlet">メインへ</a>
+<a href="MainServlet">メインへ</a>
 </body>
 </html>

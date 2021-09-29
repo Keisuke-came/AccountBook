@@ -8,6 +8,6 @@
 </head>
 <body>
 <p>正常に削除されました</p>
-<a href="/accountBook2/MainServlet">メインへ</a>
+<a href="/account-book-101/MainServlet">メインへ</a>
 </body>
 </html>

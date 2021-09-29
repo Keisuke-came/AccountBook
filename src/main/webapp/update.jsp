@@ -12,7 +12,7 @@ String itemId = request.getParameter("itemId");
 </head>
 <body>
 <h1>入出金行為更新</h1>
-<form action="/account-book-101/BookServlet?action=done" method="post">
+<form action="BookServlet?action=done" method="post">
 名称：<input type="text" name="itemName" required><br>
 支出：<input type="text" name="payment" value="0" required><br>
 収入：<input type="text" name="income" value="0" required><br>

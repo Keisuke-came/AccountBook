@@ -17,14 +17,14 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 <h1>家計簿メイン</h1>
 <p>
 <c:out value="${account.name}" />さん、ログイン中
-<a href="/account-book-101/LogoutServlet">ログアウト</a>
+<a href="LogoutServlet">ログアウト</a>
 </p>
-<form action="/account-book-101/MainServlet?action=search" method="post">
+<form action="MainServlet?action=search" method="post">
 		<input type="search" name="search" placeholder="キーワードを入力">
 		<input type="submit" name="submit" value="検索">
 </form>
 <p>
-<a href="/account-book-101/MainServlet?action=done">登録</a>
+<a href="MainServlet?action=done">登録</a>
 </p>
 <p>
 -------------------------------------------------------------------------<br>
@@ -33,7 +33,7 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 	${item.date}<br>
 	支出：${item.payment}　収入：${item.income}<br>
 	費目：${item.category}<br>
-	<form action="/account-book-101/MainServlet?action=update" method="post">
+	<form action="MainServlet?action=update" method="post">
 		<input type="hidden" name="itemId" value="${item.itemId}">
 		<input type="hidden" name="itemName" value="${item.itemName}">
 		<input type="hidden" name="payment" value="${item.payment}">
@@ -43,7 +43,7 @@ ArrayList<Item> itemList = (ArrayList<Item>) request.getAttribute("itemList");
 		<input type="hidden" name="userName" value="${item.userName}">
 		<input type="submit" value="更新">
 	</form>
-	<form action="/account-book-101/MainServlet?action=delete" method="post">
+	<form action="MainServlet?action=delete" method="post">
 		<input type="hidden" name="itemId" value="${item.itemId}">
 		<input type="submit" value="削除">
 	</form>

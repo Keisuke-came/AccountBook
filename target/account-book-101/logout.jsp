@@ -9,6 +9,6 @@
 <body>
 <h1>家計簿ログアウト</h1>
 <p>ログアウトしました</p>
-<a href="/accountBook2/WelcomeServlet">トップへ</a>
+<a href="/account-book-101/WelcomeServlet">トップへ</a>
 </body>
 </html>
