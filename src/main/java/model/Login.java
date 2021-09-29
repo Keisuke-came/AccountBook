@@ -12,3 +12,4 @@ public class Login implements Serializable {
 	public String getUserId() { return userId; }
 	public String getPass() { return pass; }
 }
+
