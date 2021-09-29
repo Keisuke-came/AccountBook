@@ -23,8 +23,6 @@ public class AccountDAO {
 			final String DB_USER = dbUri.getUserInfo().split(":")[1];
 			final String DB_PASS = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
-
-
 			try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 				String sql = "SELECT USER_ID, PASS, NAME FROM ACCOUNT WHERE USER_ID = ? AND PASS = ?";
