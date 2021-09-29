@@ -14,12 +14,14 @@ public class AccountDAO {
 	public Account findByLogin(Login login) {
 		Account account = null;
 
-		String dbUri = System.getenv("JDBC_DATABASE_URL");
-		final String JDBC_URL = dbUri.split("?")[0];
-		final String DB_USER = System.getenv("JDBC_DATABASE_USERNAME");
-		final String DB_PASS = System.getenv("JDBC_DATABASE_PASSWORD");
+//		String dbUri = System.getenv("JDBC_DATABASE_URL");
+//		final String JDBC_URL = dbUri.split("?")[0];
+//		final String DB_USER = System.getenv("JDBC_DATABASE_USERNAME");
+//		final String DB_PASS = System.getenv("JDBC_DATABASE_PASSWORD");
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		String dbUri = System.getenv("JDBC_DATABASE_URL");
+
+		try (Connection conn = DriverManager.getConnection(dbUri)) {
 
 			String sql = "SELECT USER_ID, PASS, NAME FROM ACCOUNT WHERE USER_ID = ? AND PASS = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
