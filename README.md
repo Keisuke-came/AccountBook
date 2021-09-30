@@ -13,7 +13,8 @@ DBテーブル設計
 
 ER図
 
-<img width="1253" alt="スクリーンショット 2021-09-30 21 23 44" src="https://user-images.githubusercontent.com/91085914/135455428-325f8a8d-128f-4755-aada-e0f98d9ddb1a.png">
+<img width="784" alt="スクリーンショット 2021-09-30 21 47 03" src="https://user-images.githubusercontent.com/91085914/135457704-3935bd01-3d7b-41f5-be33-db2d4ee10788.png">
+
 
 
 ＜ログイン機能：Servlet・jsp設計＞
