@@ -1,10 +1,8 @@
 # AccountBook
 家計簿アプリ
 
-<img width="723" alt="スクリーンショット 2021-11-25 16 54 18" src="https://user-images.githubusercontent.com/91085914/143401695-081242ca-5d11-4b6f-a664-59470aa3927c.png">
-
-
-
+<img width="655" alt="スクリーンショット 2021-11-25 17 00 42" src="https://user-images.githubusercontent.com/91085914/143402342-93fa3b4a-3e11-48c5-adb8-31f9ad2ad6bc.png">  
+<br>
 
 DBテーブル設計
 
