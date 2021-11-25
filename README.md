@@ -1,7 +1,7 @@
 # AccountBook
 家計簿アプリ
 
-<img width="634" alt="スクリーンショット 2021-09-30 21 23 04" src="https://user-images.githubusercontent.com/91085914/135454692-ac66232e-ad30-4d02-ab40-2184a11909f8.png">
+<img width="723" alt="スクリーンショット 2021-11-25 16 54 18" src="https://user-images.githubusercontent.com/91085914/143401695-081242ca-5d11-4b6f-a664-59470aa3927c.png">
 
 
 
